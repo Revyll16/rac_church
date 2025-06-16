@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full" x-data>
+<html class="h-full bg-gray-100">
   <head>
     <title>R.A.C Church</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,28 +9,10 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
   </head>
 
-  <body class="bg-gray-900 text-white">
-    <nav class="bg-gray-800 shadow">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 justify-between">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 flex items-center">
-              <%= image_tag "logo2.webp", class: "h-10 w-auto", alt: "R.A.C Church Logo" %>
-              <span class="ml-3 text-xl font-semibold text-white">R.A.C Church</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <main class="bg-gray-900">
-      <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-        <%= yield %>
-      </div>
-    </main>
+  <body class="h-full">
+    <%= yield %>
   </body>
 </html>
 

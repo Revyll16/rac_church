@@ -41,6 +41,11 @@ gem "http"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.7"
 
+# Authentication and Authorization
+gem "devise"
+gem "rolify"
+gem "cancancan"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

@@ -1,15 +1,17 @@
 class User < ApplicationRecord
+  rolify
   has_secure_password
 
-  # Rôles disponibles
-  ROLES = %w[admin member].freeze
+  # Associations
+  has_many :group_memberships
+  has_many :groups, through: :group_memberships
+  has_many :led_groups, class_name: 'Group', foreign_key: 'leader_id'
 
   # Validations
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :role, presence: true, inclusion: { in: ROLES }
 
   before_save :downcase_email
 
@@ -19,11 +21,11 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role == 'admin'
+    has_role?(:admin)
   end
 
   def member?
-    role == 'member'
+    has_role?(:member)
   end
 
   private
@@ -32,3 +34,4 @@ class User < ApplicationRecord
     self.email = email.downcase if email.present?
   end
 end
+

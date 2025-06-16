@@ -1,0 +1,72 @@
+<div class="py-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-2xl font-semibold text-gray-900">Tableau de bord membre</h1>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    <!-- Prochains événements -->
+    <div class="mt-8">
+      <h2 class="text-lg font-medium text-gray-900">Prochains événements</h2>
+      <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <% @upcoming_events.each do |event| %>
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate"><%= event.title %></dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      <%= event.date.strftime("%d/%m/%Y") %> à <%= event.time.strftime("%H:%M") %>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+              <div class="text-sm">
+                <%= link_to "Voir les détails", member_event_path(event), class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Sermons récents -->
+    <div class="mt-8">
+      <h2 class="text-lg font-medium text-gray-900">Sermons récents</h2>
+      <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <% @recent_sermons.each do |sermon| %>
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate"><%= sermon.title %></dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      Par <%= sermon.speaker %> le <%= sermon.date.strftime("%d/%m/%Y") %>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+              <div class="text-sm">
+                <%= link_to "Écouter", member_sermon_path(sermon), class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

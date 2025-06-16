@@ -1,23 +1,18 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
+  # Routes d'authentification
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  
   # Pages publiques
-  root 'pages#home'
   get 'about', to: 'pages#about'
   get 'sermons', to: 'pages#sermons'
   get 'events', to: 'pages#events'
   get 'contact', to: 'pages#contact'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-
   # Espace membre
-  namespace :member do
-    root "dashboard#index"
+  scope :member, module: :member, as: :member do
+    get '/', to: 'dashboard#index', as: :dashboard
     resources :profile, only: [:show, :edit, :update]
     resources :messages
     resources :groups, only: [:index, :show]
@@ -26,11 +21,21 @@ Rails.application.routes.draw do
   end
 
   # Espace admin
-  namespace :admin do
-    root "dashboard#index"
+  scope :admin, module: :admin, as: :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
     resources :users
     resources :groups
     resources :sermons
     resources :events
   end
+
+  # Route racine
+  root 'pages#home'
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Defines the root path route ("/")
+  # root "posts#index"
 end

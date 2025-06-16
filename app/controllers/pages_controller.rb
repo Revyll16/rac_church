@@ -4,6 +4,18 @@ class PagesController < ApplicationController
     @daily_verse = fetch_daily_verse
   end
 
+  def about
+  end
+
+  def sermons
+  end
+
+  def events
+  end
+
+  def contact
+  end
+
   private
 
   def fetch_daily_verse

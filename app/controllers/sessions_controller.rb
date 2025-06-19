@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :set_layout, only: [:new, :create]
+  layout 'sessions', only: [:new, :create]
 
   def new
     redirect_to admin_dashboard_path if current_user&.has_role?(:admin)

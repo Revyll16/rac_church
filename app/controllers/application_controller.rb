@@ -1,13 +1,17 @@
 class ApplicationController < ActionController::Base
-  before_action :set_layout
+  layout :resolve_layout
   helper_method :current_user, :logged_in?
 
   private
 
-  def set_layout
-    # Pour l'instant, on utilise toujours le layout public
-    # TODO: Implémenter une nouvelle solution d'authentification
-    self.class.layout 'public'
+  def resolve_layout
+    if current_user&.admin?
+      "admin"
+    elsif current_user&.member?
+      "member"
+    else
+      "public"
+    end
   end
 
   def current_user

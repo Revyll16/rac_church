@@ -42,7 +42,6 @@ gem "http"
 gem "bcrypt", "~> 3.1.7"
 
 # Authentication and Authorization
-gem "devise"
 gem "rolify"
 gem "cancancan"
 

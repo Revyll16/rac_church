@@ -1,0 +1,29 @@
+<h1 class="text-2xl font-bold mb-6">Liste des événements</h1>
+<%= link_to 'Nouvel événement', new_admin_event_path, class: 'mb-4 inline-block px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700' %>
+
+<table class="min-w-full bg-white rounded shadow">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">Titre</th>
+      <th class="px-4 py-2">Date</th>
+      <th class="px-4 py-2">Début</th>
+      <th class="px-4 py-2">Fin</th>
+      <th class="px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td class="border px-4 py-2"><%= event.title %></td>
+        <td class="border px-4 py-2"><%= event.date&.strftime('%d/%m/%Y') %></td>
+        <td class="border px-4 py-2"><%= event.start_time&.strftime('%H:%M') %></td>
+        <td class="border px-4 py-2"><%= event.end_time&.strftime('%H:%M') %></td>
+        <td class="border px-4 py-2">
+          <%= link_to 'Voir', admin_event_path(event), class: 'text-blue-600 hover:underline mr-2' %>
+          <%= link_to 'Modifier', edit_admin_event_path(event), class: 'text-yellow-600 hover:underline mr-2' %>
+          <%= link_to 'Supprimer', admin_event_path(event), method: :delete, data: { confirm: 'Supprimer cet événement ?' }, class: 'text-red-600 hover:underline' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 

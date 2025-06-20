@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
-  
+
   # Pages publiques
   get 'about', to: 'pages#about'
   get 'sermons', to: 'pages#sermons'

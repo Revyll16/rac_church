@@ -1,0 +1,20 @@
+<div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-6 mt-8">
+  <% if @event.image.attached? %>
+    <div class="mb-6">
+      <%= image_tag @event.image, class: 'w-full h-64 object-cover rounded-lg shadow' %>
+    </div>
+  <% end %>
+  <h1 class="text-3xl font-bold text-indigo-800 mb-2"><%= @event.title %></h1>
+  <div class="flex items-center text-gray-600 mb-4">
+    <span class="inline-block mr-4">
+      <i class="fas fa-calendar-alt mr-1"></i>
+      <%= @event.date.strftime('%A %d %B %Y') %>
+    </span>
+    <span class="inline-block">
+      <i class="fas fa-clock mr-1"></i>
+      <%= @event.start_time.strftime('%H:%M') %> - <%= @event.end_time.strftime('%H:%M') %>
+    </span>
+  </div>
+  <p class="text-gray-800 text-lg mb-6"><%= @event.description %></p>
+  <%= link_to 'Retour', member_events_path, class: 'inline-block px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700' %>
+</div> 

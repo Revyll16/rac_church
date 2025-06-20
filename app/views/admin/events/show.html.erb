@@ -1,0 +1,17 @@
+<h1 class="text-2xl font-bold mb-6"><%= @event.title %></h1>
+
+<% if @event.image.attached? %>
+  <div class="mb-4">
+    <%= image_tag @event.image, class: 'w-full max-w-md h-64 object-cover rounded' %>
+  </div>
+<% end %>
+
+<p><strong>Description :</strong> <%= @event.description %></p>
+<p><strong>Date :</strong> <%= @event.date&.strftime('%d/%m/%Y') %></p>
+<p><strong>Heure de début :</strong> <%= @event.start_time&.strftime('%H:%M') %></p>
+<p><strong>Heure de fin :</strong> <%= @event.end_time&.strftime('%H:%M') %></p>
+
+<div class="mt-6">
+  <%= link_to 'Modifier', edit_admin_event_path(@event), class: 'px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 mr-2' %>
+  <%= link_to 'Retour à la liste', admin_events_path, class: 'px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400' %>
+</div> 

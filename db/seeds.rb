@@ -1,4 +1,4 @@
-puts "🔄 Seeding database..."
+Rails.logger.debug "🔄 Seeding database..."
 
 # === Create or find 'admin' role
 admin_role = Role.find_or_create_by!(name: 'admin')
@@ -14,14 +14,14 @@ end
 
 if admin.new_record?
   admin.save!
-  puts "✅ Admin user created: #{admin.email}"
+  Rails.logger.debug "✅ Admin user created: #{admin.email}"
 else
-  puts "⚠️ Admin user already exists: #{admin.email}"
+  Rails.logger.debug "⚠️ Admin user already exists: #{admin.email}"
 end
 
 unless admin.has_role?(:admin)
   admin.add_role(:admin)
-  puts "🔗 Role 'admin' assigned to #{admin.email}"
+  Rails.logger.debug "🔗 Role 'admin' assigned to #{admin.email}"
 end
 
 # === Create or find 'member' role
@@ -38,14 +38,14 @@ end
 
 if member.new_record?
   member.save!
-  puts "✅ Member user created: #{member.email}"
+  Rails.logger.debug "✅ Member user created: #{member.email}"
 else
-  puts "⚠️ Member user already exists: #{member.email}"
+  Rails.logger.debug "⚠️ Member user already exists: #{member.email}"
 end
 
 unless member.has_role?(:member)
   member.add_role(:member)
-  puts "🔗 Role 'member' assigned to #{member.email}"
+  Rails.logger.debug "🔗 Role 'member' assigned to #{member.email}"
 end
 
-puts "✅ Database seeding finished!"
+Rails.logger.debug "✅ Database seeding finished!"

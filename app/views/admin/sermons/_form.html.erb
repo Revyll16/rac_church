@@ -1,0 +1,52 @@
+<%= form_with(model: [:admin, @sermon], local: true, html: { multipart: true, "data-turbo" => "false" }) do |form| %>
+  <% if @sermon.errors.any? %>
+    <div class="mb-4 p-4 bg-red-100 text-red-500 rounded">
+      <h2>Erreurs :</h2>
+      <ul>
+        <% @sermon.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-4">
+    <%= form.label :title, 'Titre *', class: 'block text-gray-100 font-bold' %>
+    <%= form.text_field :title, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900', required: true %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :speaker, 'Orateur *', class: 'block text-gray-100 font-bold' %>
+    <%= form.text_field :speaker, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900', required: true %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :date, 'Date *', class: 'block text-gray-100 font-bold' %>
+    <%= form.date_field :date, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900', required: true %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :description, 'Description *', class: 'block text-gray-100 font-bold' %>
+    <%= form.text_area :description, rows: 4, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900', required: true %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :audio, 'Fichier audio', class: 'block text-gray-100' %>
+    <%= form.file_field :audio, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900' %>
+    <% if @sermon.persisted? && @sermon.audio.attached? %>
+      <p class="mt-2">Fichier actuel : <%= link_to @sermon.audio.filename, url_for(@sermon.audio), target: '_blank' %></p>
+    <% end %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :video, 'Fichier vidéo (optionnel)', class: 'block text-gray-100' %>
+    <%= form.file_field :video, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900' %>
+    <% if @sermon.persisted? && @sermon.video.attached? %>
+      <p class="mt-2">Vidéo actuelle : <%= link_to @sermon.video.filename, url_for(@sermon.video), target: '_blank' %></p>
+    <% end %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :video_url, 'Lien vidéo (optionnel)', class: 'block text-gray-100' %>
+    <%= form.url_field :video_url, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900' %>
+    <% if @sermon.video_url.present? %>
+      <p class="mt-2">Lien actuel : <%= link_to @sermon.video_url, @sermon.video_url, target: '_blank' %></p>
+    <% end %>
+  </div>
+  <div class="flex justify-end">
+    <%= form.submit class: 'px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700' %>
+  </div>
+<% end %> 

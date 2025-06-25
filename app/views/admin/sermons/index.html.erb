@@ -1,0 +1,38 @@
+<h1 class="text-2xl font-bold mb-6 text-gray-100">Liste des sermons</h1>
+<%= link_to 'Nouveau sermon', new_admin_sermon_path, class: 'mb-4 inline-block px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700' %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% @sermons.each do |sermon| %>
+    <%# Détection du thumbnail %>
+    <% if sermon.video_url.present? && (sermon.video_url.include?('youtube.com') || sermon.video_url.include?('youtu.be')) %>
+      <% youtube_id = sermon.video_url[/youtu\.be\/([\w-]+)/, 1] || sermon.video_url[/v=([\w-]+)/, 1] %>
+      <% thumbnail_url = "https://img.youtube.com/vi/#{youtube_id}/hqdefault.jpg" if youtube_id %>
+    <% end %>
+    <div class="relative rounded shadow flex flex-col justify-between h-72 overflow-hidden group">
+      <%# Arrière-plan thumbnail vidéo ou neutre %>
+      <% if sermon.video.attached? %>
+        <video class="absolute inset-0 w-full h-full object-cover" src="<%= url_for(sermon.video) %>#t=1" preload="metadata" muted playsinline></video>
+      <% elsif defined?(thumbnail_url) && thumbnail_url %>
+        <img src="<%= thumbnail_url %>" class="absolute inset-0 w-full h-full object-cover" alt="thumbnail video">
+      <% else %>
+        <div class="absolute inset-0 w-full h-full bg-gray-300"></div>
+      <% end %>
+      <%# Overlay sombre %>
+      <div class="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-70 transition"></div>
+      <%# Texte en avant-plan %>
+      <div class="relative z-10 p-4 flex flex-col h-full justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-white mb-2 truncate"><%= sermon.title %></h2>
+          <p class="text-sm text-gray-200 mb-1"><strong>Orateur :</strong> <%= sermon.speaker %></p>
+          <p class="text-sm text-gray-200 mb-1"><strong>Date :</strong> <%= sermon.date&.strftime('%d/%m/%Y') %></p>
+          <p class="text-sm text-gray-200 mb-2 truncate"><strong>Description :</strong> <%= sermon.description.truncate(80) %></p>
+        </div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <%= link_to 'Voir', admin_sermon_path(sermon), class: 'px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm' %>
+          <%= link_to 'Modifier', edit_admin_sermon_path(sermon), class: 'px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm' %>
+          <%= button_to 'Supprimer', admin_sermon_path(sermon), method: :delete, data: { confirm: 'Supprimer ce sermon ?' }, class: 'px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 

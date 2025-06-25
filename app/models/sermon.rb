@@ -1,4 +1,6 @@
 class Sermon < ApplicationRecord
+  has_one_attached :audio
+  has_one_attached :video
   validates :title, presence: true
   validates :speaker, presence: true
   validates :date, presence: true

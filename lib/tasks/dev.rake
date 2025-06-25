@@ -1,4 +1,4 @@
-# ✅ Deux tâches pour RuboCop :
+# ✅ Deux tâches pour RuboCop tasks:
 
 # rake rubocop:auto_correct → corrige automatiquement les offenses.
 

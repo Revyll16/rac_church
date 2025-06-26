@@ -14,9 +14,11 @@ module Admin
     end
 
     def create
-      @user = User.new(user_params)
+      @user = User.new(user_params.except(:role))
       if @user.save
-        redirect_to admin_user_path(@user), notice: 'Utilisateur créé avec succès.'
+        @user.roles = []
+        @user.add_role(params[:user][:role]) if params[:user][:role].present?
+        redirect_to admin_users_path, notice: 'Utilisateur créé avec succès.'
       else
         render :new, status: :unprocessable_entity
       end
@@ -26,8 +28,10 @@ module Admin
     end
 
     def update
-      if @user.update(user_params)
-        redirect_to admin_user_path(@user), notice: 'Utilisateur mis à jour avec succès.'
+      if @user.update(user_params.except(:role))
+        @user.roles = []
+        @user.add_role(params[:user][:role]) if params[:user][:role].present?
+        redirect_to admin_users_path, notice: 'Utilisateur mis à jour avec succès.'
       else
         render :edit, status: :unprocessable_entity
       end
@@ -45,7 +49,7 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :phone_number, :address, :birth_date)
+      params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :phone_number, :address, :birth_date, :active)
     end
   end
 end 

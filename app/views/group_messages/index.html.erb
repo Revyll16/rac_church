@@ -5,7 +5,9 @@
       <%= render partial: 'message', locals: { message: message } %>
     <% end %>
   </div>
+
   <%= render partial: 'form', locals: { group: @group, message: @message } %>
+
 </div>
 <script>
   function scrollToBottom() {

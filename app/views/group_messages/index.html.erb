@@ -5,11 +5,9 @@
       <%= render partial: 'message', locals: { message: message } %>
     <% end %>
   </div>
-  <%= form_with(model: [@group, @message], local: false, html: { class: 'flex gap-2', multipart: true, id: 'new_group_message' }) do |f| %>
-    <%= f.text_field :content, placeholder: "Votre message...", class: "flex-1 rounded border-gray-300" %>
-    <%= f.file_field :file, class: "h-10" %>
-    <%= f.submit 'Envoyer', class: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" %>
-  <% end %>
+
+  <%= render partial: 'form', locals: { group: @group, message: @message } %>
+
 </div>
 <script>
   function scrollToBottom() {
@@ -23,12 +21,13 @@
   // Scroll lors de l'ajout d'un message (Turbo Stream)
   var messages = document.getElementById('messages');
   if (messages) {
+    let lastCount = messages.childElementCount;
     var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.addedNodes.length > 0) {
-          scrollToBottom();
-        }
-      });
+      var newCount = messages.childElementCount;
+      if (newCount > lastCount) {
+        scrollToBottom();
+      }
+      lastCount = newCount;
     });
     observer.observe(messages, { childList: true });
   }

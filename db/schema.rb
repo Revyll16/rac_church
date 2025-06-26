@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_26_123446) do
+
+ActiveRecord::Schema[7.1].define(version: 2025_06_26_153200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,17 +67,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_26_123446) do
     t.index ["user_id"], name: "index_group_memberships_on_user_id"
   end
 
+  create_table "group_messages", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.string "message_type"
+    t.string "file_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_messages_on_group_id"
+    t.index ["user_id"], name: "index_group_messages_on_user_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.string "meeting_day"
-    t.time "meeting_time"
-    t.string "location"
-    t.boolean "active", default: true
-    t.bigint "leader_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["leader_id"], name: "index_groups_on_leader_id"
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
@@ -130,5 +137,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_26_123446) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
-  add_foreign_key "groups", "users", column: "leader_id"
+  add_foreign_key "group_messages", "groups"
+  add_foreign_key "group_messages", "users"
 end

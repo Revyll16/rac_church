@@ -1,0 +1,44 @@
+<%= form_with(model: [:admin, @group], local: true, html: { multipart: true, "data-turbo" => "false" }) do |form| %>
+  <% if @group.errors.any? %>
+    <div class="mb-4 p-4 bg-red-100 text-red-500 rounded">
+      <h2>Erreurs :</h2>
+      <ul>
+        <% @group.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-4">
+    <%= form.label :name, 'Nom du groupe *', class: 'block text-white font-bold' %>
+    <%= form.text_field :name, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900', required: true %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :description, 'Description', class: 'block text-white font-bold' %>
+    <%= form.text_area :description, rows: 3, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900' %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :image, 'Image du groupe (optionnelle)', class: 'block text-white' %>
+    <%= form.file_field :image, class: 'mt-1 block w-full rounded border-gray-300 bg-white text-gray-900' %>
+    <% if @group.persisted? && @group.image.attached? %>
+      <div class="mt-2">
+        <%= image_tag @group.image, class: 'w-32 h-32 object-cover rounded shadow' %>
+        <p class="mt-2">Image actuelle : <%= link_to @group.image.filename, url_for(@group.image), target: '_blank' %></p>
+      </div>
+    <% end %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :member_ids, 'Membres du groupe', class: 'block text-white font-bold' %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <% User.all.each do |user| %>
+        <label class="inline-flex items-center text-white">
+          <%= check_box_tag 'group[member_ids][]', user.id, @group.member_ids.include?(user.id), id: "group_member_ids_#{user.id}" %>
+          <span class="ml-2"><%= user.full_name %> (<%= user.email %>)</span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <%= form.submit class: 'px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700' %>
+  </div>
+<% end %> 

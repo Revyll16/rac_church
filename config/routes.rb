@@ -29,6 +29,11 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  # Messagerie de groupe accessible à tout utilisateur connecté
+  resources :groups, only: [:index, :show] do
+    resources :group_messages, only: [:index, :create]
+  end
+
   # Route racine
   root 'pages#home'
 

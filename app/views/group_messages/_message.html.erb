@@ -1,0 +1,27 @@
+<div class="flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %>">
+  <div class="max-w-xs p-2 rounded-lg <%= message.user == current_user ? 'bg-indigo-100 text-right' : 'bg-gray-100' %>">
+    <div class="text-xs text-gray-500 mb-1">
+      <%= message.user == current_user ? 'Moi' : message.user.full_name %> · <%= l(message.created_at, format: :short) %>
+    </div>
+    <% if message.content.present? %>
+      <div class="mb-1"><%= simple_format(message.content) %></div>
+    <% end %>
+    <% if message.file.attached? %>
+      <div class="mt-1">
+        <% if message.file.image? %>
+          <%= image_tag message.file, class: 'w-32 h-32 object-cover rounded' %>
+        <% elsif message.file.video? %>
+          <video controls class="w-32 h-32 rounded">
+            <source src="<%= url_for(message.file) %>">
+          </video>
+        <% elsif message.file.audio? %>
+          <audio controls>
+            <source src="<%= url_for(message.file) %>">
+          </audio>
+        <% else %>
+          <a href="<%= url_for(message.file) %>" target="_blank" class="text-blue-600 underline">Fichier joint</a>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div> 

@@ -1,0 +1,14 @@
+<turbo-stream action="append" target="messages">
+  <template>
+    <%= render partial: 'message', formats: [:html], locals: { message: @message } %>
+  </template>
+</turbo-stream>
+<turbo-stream action="replace" target="new_group_message">
+  <template>
+    <%= form_with(model: [@group, @group.group_messages.new], local: false, html: { class: 'flex gap-2', multipart: true, id: 'new_group_message' }) do |f| %>
+      <%= f.text_field :content, placeholder: "Votre message...", class: "flex-1 rounded border-gray-300" %>
+      <%= f.file_field :file, class: "" %>
+      <%= f.submit 'Envoyer', class: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" %>
+    <% end %>
+  </template>
+</turbo-stream> 

@@ -23,9 +23,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    unless logged_in?
-      flash[:alert] = "Vous devez être connecté pour accéder à cette page"
-      redirect_to login_path
+    unless current_user
+      redirect_to login_path, alert: "Vous devez être connecté pour accéder à cette page."
     end
   end
 

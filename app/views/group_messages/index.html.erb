@@ -1,13 +1,35 @@
 <div class="max-w-2xl mx-auto mt-8">
   <h2 class="text-2xl font-bold mb-4 text-center">Discussion du groupe <%= @group.name %></h2>
-  <div id="messages" class="bg-white rounded shadow p-4 h-96 overflow-y-auto flex flex-col gap-2 mb-4">
+  <div id="messages" class="bg-cyan-100 rounded shadow p-4 h-96 overflow-y-auto flex flex-col gap-2 mb-4">
     <% @messages.each do |message| %>
       <%= render partial: 'message', locals: { message: message } %>
     <% end %>
   </div>
-  <%= form_with(model: [@group, @message], local: false, html: { class: 'flex gap-2', multipart: true }) do |f| %>
+  <%= form_with(model: [@group, @message], local: false, html: { class: 'flex gap-2', multipart: true, id: 'new_group_message' }) do |f| %>
     <%= f.text_field :content, placeholder: "Votre message...", class: "flex-1 rounded border-gray-300" %>
-    <%= f.file_field :file, class: "" %>
+    <%= f.file_field :file, class: "h-10" %>
     <%= f.submit 'Envoyer', class: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" %>
   <% end %>
-</div> 
+</div>
+<script>
+  function scrollToBottom() {
+    var messages = document.getElementById('messages');
+    if (messages) {
+      messages.scrollTop = messages.scrollHeight;
+    }
+  }
+  // Scroll au chargement initial
+  document.addEventListener('turbo:load', scrollToBottom);
+  // Scroll lors de l'ajout d'un message (Turbo Stream)
+  var messages = document.getElementById('messages');
+  if (messages) {
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length > 0) {
+          scrollToBottom();
+        }
+      });
+    });
+    observer.observe(messages, { childList: true });
+  }
+</script> 

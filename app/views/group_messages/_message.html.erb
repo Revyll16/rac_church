@@ -1,6 +1,6 @@
 <div class="flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %>">
-  <div class="max-w-xs p-2 rounded-lg <%= message.user == current_user ? 'bg-indigo-100 text-right' : 'bg-gray-100' %>">
-    <div class="text-xs text-gray-500 mb-1">
+  <div class="max-w-xs p-3 rounded-lg shadow-lg <%= message.user == current_user ? 'bg-green-600 text-white' : 'bg-sky-600 text-white' %>">
+    <div class="text-xs text-gray-300 mb-1 opacity-80">
       <%= message.user == current_user ? 'Moi' : message.user.full_name %> · <%= l(message.created_at, format: :short) %>
     </div>
     <% if message.content.present? %>
@@ -19,7 +19,7 @@
             <source src="<%= url_for(message.file) %>">
           </audio>
         <% else %>
-          <a href="<%= url_for(message.file) %>" target="_blank" class="text-blue-600 underline">Fichier joint</a>
+          <a href="<%= url_for(message.file) %>" target="_blank" class="text-blue-200 underline">Fichier joint</a>
         <% end %>
       </div>
     <% end %>

@@ -22,35 +22,34 @@
     <div class="pt-8">
       <div>
         <h3 class="text-lg leading-6 font-medium text-gray-900">Informations de l'utilisateur</h3>
-        <p class="mt-1 text-sm text-gray-500">Informations de base de l'utilisateur.</p>
       </div>
 
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-3">
           <%= f.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_field :first_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.text_field :first_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-3">
           <%= f.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_field :last_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.text_field :last_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-4">
           <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.email_field :email, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.email_field :email, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-3">
-          <%= f.label :role, "Rôle", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :role, "Rôle", class: "block text-sm font-medium text-gray-900" %>
           <div class="mt-1">
-            <%= f.select :role, User::ROLES.map { |r| [r.capitalize, r] }, {}, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.select :role, User::ROLES.map { |r| [r.capitalize, r] }, { selected: (user.admin? ? 'admin' : 'member') }, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md bg-white text-gray-900" %>
           </div>
         </div>
 
@@ -65,14 +64,14 @@
         <div class="sm:col-span-6">
           <%= f.label :password, "Mot de passe", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.password_field :password, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.password_field :password, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-6">
           <%= f.label :password_confirmation, "Confirmation du mot de passe", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.password_field :password_confirmation, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.password_field :password_confirmation, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
       </div>
@@ -88,21 +87,21 @@
         <div class="sm:col-span-3">
           <%= f.label :phone_number, "Numéro de téléphone", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.telephone_field :phone_number, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.telephone_field :phone_number, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-3">
           <%= f.label :birth_date, "Date de naissance", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.date_field :birth_date, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.date_field :birth_date, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
 
         <div class="sm:col-span-6">
           <%= f.label :address, "Adresse", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
-            <%= f.text_area :address, rows: 3, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.text_area :address, rows: 3, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900 p-2" %>
           </div>
         </div>
       </div>

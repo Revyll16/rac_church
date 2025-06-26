@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  ROLES = %w[admin member]
   rolify
   has_secure_password
 
@@ -27,6 +28,7 @@ class User < ApplicationRecord
   def member?
     has_role?(:member)
   end
+
 
   private
 

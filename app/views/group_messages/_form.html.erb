@@ -1,0 +1,51 @@
+<%= form_with(model: [group, message], local: false, html: { class: 'flex items-center gap-2', multipart: true, id: 'new_group_message' }) do |f| %>
+  <span class="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow text-2xl cursor-pointer mr-2">😊</span>
+  <label for="message_file" class="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow text-xl cursor-pointer mr-2 hover:bg-gray-200 transition" title="Joindre un fichier">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 text-gray-500">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.586-6.586a4 4 0 10-5.656-5.656l-6.586 6.586a6 6 0 108.485 8.485l6.586-6.586" />
+    </svg>
+  </label>
+  <%= f.file_field :file, class: "h-10 hidden", id: "message_file" %>
+  <%= f.text_field :content, placeholder: "Votre message...", class: "flex-1 rounded-full border border-gray-300 bg-white text-gray-900 px-4 py-2 focus:border-green-400 focus:ring-2 focus:ring-green-100 transition placeholder-gray-400 shadow-sm outline-none", autocomplete: "off", id: "message_content" %>
+  <button type="submit" id="send_btn" class="flex items-center justify-center w-10 h-10 bg-gray-400 text-white rounded-full shadow transition opacity-50 cursor-not-allowed" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+  </button>
+<% end %>
+<script>
+  function initGroupMessageForm() {
+    function toggleSendBtn() {
+      const content = document.getElementById('message_content');
+      const file = document.getElementById('message_file');
+      const btn = document.getElementById('send_btn');
+      const canSend = !!content.value.trim() || !!file.files.length;
+      btn.disabled = !canSend;
+      if (canSend) {
+        btn.classList.remove('bg-gray-400', 'opacity-50', 'cursor-not-allowed');
+        btn.classList.add('bg-green-500', 'hover:bg-green-600', 'cursor-pointer');
+      } else {
+        btn.classList.add('bg-gray-400', 'opacity-50', 'cursor-not-allowed');
+        btn.classList.remove('bg-green-500', 'hover:bg-green-600', 'cursor-pointer');
+      }
+    }
+    const content = document.getElementById('message_content');
+    const file = document.getElementById('message_file');
+    const form = document.getElementById('new_group_message');
+    if (content && file && form) {
+      toggleSendBtn();
+      content.removeEventListener('input', toggleSendBtn);
+      file.removeEventListener('change', toggleSendBtn);
+      content.addEventListener('input', toggleSendBtn);
+      file.addEventListener('change', toggleSendBtn);
+      form.onsubmit = function(e) {
+        if (!content.value.trim() && !file.files.length) {
+          e.preventDefault();
+          return false;
+        }
+      };
+    }
+  }
+  document.addEventListener('turbo:load', initGroupMessageForm);
+  document.addEventListener('turbo:render', initGroupMessageForm);
+</script> 

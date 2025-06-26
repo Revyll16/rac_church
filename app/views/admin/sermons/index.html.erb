@@ -30,7 +30,7 @@
         <div class="mt-2 flex flex-wrap gap-2">
           <%= link_to 'Voir', admin_sermon_path(sermon), class: 'px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm' %>
           <%= link_to 'Modifier', edit_admin_sermon_path(sermon), class: 'px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm' %>
-          <%= button_to 'Supprimer', admin_sermon_path(sermon), method: :delete, data: { confirm: 'Supprimer ce sermon ?' }, class: 'px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm' %>
+          <%= button_to 'Supprimer', admin_sermon_path(sermon), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer ce sermon ? Cette action est irréversible.' }, class: 'px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm' %>
         </div>
       </div>
     </div>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  user: one
+  content: MyText
+  message_type: MyString
+  file_url: MyString
+
+two:
+  group: two
+  user: two
+  content: MyText
+  message_type: MyString
+  file_url: MyString

@@ -4,9 +4,10 @@ class User < ApplicationRecord
   has_secure_password
 
   # Associations
-  has_many :group_memberships
+  has_many :group_memberships, dependent: :destroy
   has_many :groups, through: :group_memberships
   has_many :led_groups, class_name: 'Group', foreign_key: 'leader_id'
+  has_many :group_messages, dependent: :destroy
 
   # Validations
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
